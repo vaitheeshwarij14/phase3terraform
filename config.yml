@@ -1,0 +1,22 @@
+version: 2.1
+
+orbs:
+  terraform: circleci/terraform@0.2.1
+
+jobs:
+  deploy_infrastructure:
+    docker:
+      - image: hashicorp/terraform:light
+    steps:
+      - checkout
+      - terraform/init:
+          path: path_to_your_terraform_scripts
+      - terraform/apply:
+          path: path_to_your_terraform_scripts
+          var_file: path_to_your_variable_file.tfvars
+
+workflows:
+  version: 2
+  deployment_workflow:
+    jobs:
+      - deploy_infrastructure
